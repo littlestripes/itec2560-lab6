@@ -1,3 +1,21 @@
+// create custom icon object
+let bridgeIcon = L.icon({
+    iconUrl: 'bridge.png',
+
+    iconSize: [64, 64],
+    iconAnchor: [32, 64],
+    popupAnchor: [0, -64]
+});
+
+// and another for the longest bridge
+let longestBridgeIcon = L.icon({
+    iconUrl: 'bridge-longest.png',
+
+    iconSize: [64, 64],
+    iconAnchor: [32, 64],
+    popupAnchor: [0, -64]
+});
+
 let usCenterCoords = [39.8333, -98.5833];  // center of continental US
 let zoomLevel = 4;
 
@@ -7,11 +25,6 @@ let map = L.map('world-map').setView(usCenterCoords, zoomLevel)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copywrite">OpenStreetMap</a>',    
 }).addTo(map)
-
-//let mctcCoordinates = [44.9724, -93.2844]
-//let mctcMarker = L.marker(mctcCoordinates)
-    //.bindPopup('Minnepolis College<br><a href="https://minneapolis.edu">Website</a>')
-    //.addTo(map)
 
 bridges = [
     {
@@ -56,8 +69,21 @@ bridges = [
     }
 ];
 
+let longest = bridges[0];
 bridges.forEach((bridge) => {
-    L.marker(bridge['coords'])
-        .bindPopup(`<b>${bridge['name']}</b><br>Location: ${bridge['loc']}<br>Span: ${bridge['span']} meters`)
-        .addTo(map);
+    if (bridge['span'] > longest['span']) {
+        longest = bridge;
+    }
+});
+
+bridges.forEach((bridge) => {
+    if (bridge !== longest) {
+        L.marker(bridge['coords'], {icon: bridgeIcon})
+            .bindPopup(`<b>${bridge['name']}</b><br>Location: ${bridge['loc']}<br>Span: ${bridge['span']} meters`)
+            .addTo(map);
+    } else {
+        L.marker(bridge['coords'], {icon: longestBridgeIcon})
+            .bindPopup(`<b>${bridge['name']}</b><br>Location: ${bridge['loc']}<br>Span: ${bridge['span']} meters`)
+            .addTo(map);
+    }
 });
