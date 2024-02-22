@@ -4,9 +4,11 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
     
     <link rel="stylesheet" type="text/css" href="maps.css">
     <script async defer src="maps.js"></script>
+    <script async defer src="map-chart.js"></script>
 
     <title>Longest Bridges in U.S.</title>
 
@@ -15,6 +17,10 @@
 
     <div id="world-map"></div>
     <i>Longest bridge shown w/ red icon</i>
+
+    <br>
+
+    <canvas id="bridge-span-chart"></canvas>
 
 </body>
 </html>
